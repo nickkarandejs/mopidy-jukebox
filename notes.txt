@@ -1,0 +1,1 @@
+ sudo gst-install "gstreamer|0.10|mopidy|MPEG-4 AAC decoder|decoder-audio/mpeg, mpegversion=(int)4, framed=(boolean)true, stream-format=(string)raw, level=(string)2, base-profile=(string)lc, profile=(string)lc
