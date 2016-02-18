@@ -2,4 +2,4 @@ Mopidy==1.1.2
 Mopidy-Local-SQLite==1.0.0
 Mopidy-Youtube==2.0.2
 pip-tools==1.6
--e git+https://github.com/palfrey/mopidy-musicbox-webclient.git@2614f26655d5bff5f738f6d1408c9f9daae2676e#egg=Mopidy_MusicBox_Webclient
+pysqlite

@@ -4,7 +4,6 @@
 #
 #    pip-compile requirements.in
 #
--e git+https://github.com/palfrey/mopidy-musicbox-webclient.git@2614f26655d5bff5f738f6d1408c9f9daae2676e#egg=Mopidy_MusicBox_Webclient
 backports-abc==0.4        # via tornado
 backports.ssl-match-hostname==3.5.0.1  # via tornado
 certifi==2015.11.20.1     # via tornado
@@ -17,6 +16,7 @@ Mopidy==1.1.2             # via mopidy-local-sqlite, mopidy-youtube
 pafy==0.4.3               # via mopidy-youtube
 pip-tools==1.6
 Pykka==1.2.1              # via mopidy, mopidy-local-sqlite, mopidy-youtube
+pysqlite==2.8.1
 requests==2.9.1           # via mopidy, mopidy-youtube
 singledispatch==3.4.0.3   # via tornado
 six==1.10.0               # via pip-tools, singledispatch

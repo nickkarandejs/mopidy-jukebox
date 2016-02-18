@@ -23,12 +23,11 @@ class Extension(ext.Extension):
 
     def get_config_schema(self):
         schema = super(Extension, self).get_config_schema()
-        schema['caches'] = config.String()
         return schema
 
     def get_command(self):
         from .cache import CacherCommand
-        return CacherCommand()
+        return CacherCommand(self)
 
     def setup(self, registry):
         pass
