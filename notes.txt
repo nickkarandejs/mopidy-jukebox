@@ -5,3 +5,7 @@ sudo apt-get install python-gst0.10 gstreamer0.10-plugins-good gstreamer0.10-plu
 chrome://appcache-internals/
 
 sudo apt-get install libsqlite3-dev
+
+brew install pygobject
+brew install homebrew/versions/gst-python010
+brew install homebrew/versions/gst-plugins-good010 homebrew/versions/gst-plugins-bad010 homebrew/versions/gst-plugins-ugly010 --with-mad
