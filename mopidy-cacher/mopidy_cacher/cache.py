@@ -52,11 +52,13 @@ class CacherCommand(commands.Command):
             if row.successful and diff < 30 * 60: # half an hour
                 continue
             url = row.url
+            logger.info("Caching %s" % url)
             cmd = ["wget", "--mirror", url, "-P", self._music_store_dir]
             logger.debug(" ".join(cmd))
             popen = subprocess.Popen(cmd, stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
             (stdoutdata, stderrdata) = popen.communicate()
             with self._connect() as connection:
+                logger.info("Finished caching %s with result %d" % (url, popen.returncode))
                 if popen.returncode != 0:
                     logger.warning(stderrdata)
                     logger.warning(stdoutdata)
