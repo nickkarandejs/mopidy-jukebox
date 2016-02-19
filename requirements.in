@@ -1,5 +1,7 @@
-Mopidy==1.1.2
+Mopidy==2.0.0
 Mopidy-Local-SQLite==1.0.0
 Mopidy-Youtube==2.0.2
 pip-tools==1.6
 pysqlite
+requests[security]
+certifi==2015.4.28
