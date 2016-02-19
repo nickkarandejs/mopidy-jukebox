@@ -21,3 +21,17 @@ sudo update-ca-certificates
 
 sudo sv stop jackd
 aplay /usr/share/sounds/alsa/Front_Right.wav
+
+sudo apt-get install sqlite3
+sqlite3 ~/.local/share/mopidy/cacher/cacher.db
+insert into sources values ("http://mruppity:8000/Pixies/", 0, 0);
+sudo mount /dev/sda1 /media
+sudo chown pi /media
+mopidy cacher
+
+http://mopidy.readthedocs.org/en/latest/installation/debian/#debian-install
+sudo apt-get install gir1.2-gstreamer-1.0=1.2.4-1~bpo70+1=1.2.4-1~bpo70+1 gir1.2-gst-plugins-base-1.0=1.2.4-1~bpo70+1
+
+deb http://http.debian.net/debian wheezy-backports main
+sudo aptitude install libgstreamer1.0-0=1.2.4-1~bpo70+1
+debian-keyring
