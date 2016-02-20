@@ -1,2 +1,5 @@
 ENV
 mopidy.log
+
+nodes
+berks-cookbooks
