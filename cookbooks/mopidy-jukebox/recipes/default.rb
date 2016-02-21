@@ -27,3 +27,40 @@ execute 'install mopidy-musicbox-webclient' do
 	command 'python setup.py develop'
 	not_if 'pip list | grep Mopidy-MusicBox-Webclient'
 end
+
+user 'mopidy' do
+	comment 'Mopidy'
+	system true
+	shell '/bin/false'
+	home '/home/mopidy'
+end
+
+execute 'reload systemd' do
+	command 'systemctl daemon-reload'
+	action :nothing
+end
+
+cookbook_file "/etc/systemd/system/mopidy.service" do
+	source "mopidy.service"
+	owner "root"
+	group "root"
+	mode "0644"
+	notifies :run, 'execute[reload systemd]', :immediately
+end
+
+directory '/etc/mopidy' do
+	owner 'mopidy'
+	mode '0755'
+	action :create
+end
+
+cookbook_file "/etc/mopidy/mopidy.conf" do
+	source "mopidy.conf"
+	owner "mopidy"
+	mode "0644"
+end
+
+service 'mopidy' do
+	provider Chef::Provider::Service::Systemd
+	action :start
+end
