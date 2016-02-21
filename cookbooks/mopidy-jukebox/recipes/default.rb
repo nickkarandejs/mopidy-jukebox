@@ -18,13 +18,13 @@ end
 
 execute 'install mopidy-cacher' do
 	cwd File.join(files_default, "mopidy-cacher")
-	command 'python setup.py develop'
+	command 'python setup.py install'
 	not_if 'pip list | grep Mopidy-Cacher'
 end
 
 execute 'install mopidy-musicbox-webclient' do
 	cwd File.join(files_default, "mopidy-musicbox-webclient")
-	command 'python setup.py develop'
+	command 'python setup.py install'
 	not_if 'pip list | grep Mopidy-MusicBox-Webclient'
 end
 
@@ -33,6 +33,7 @@ user 'mopidy' do
 	system true
 	shell '/bin/false'
 	home '/home/mopidy'
+	supports :manage_home => true
 end
 
 execute 'reload systemd' do
