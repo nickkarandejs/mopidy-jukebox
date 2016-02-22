@@ -5,4 +5,5 @@ include README.rst
 include mopidy_cacher/ext.conf
 include tox.ini
 
+recursive-include mopidy_cacher/sql *.sql
 recursive-include tests *.py
