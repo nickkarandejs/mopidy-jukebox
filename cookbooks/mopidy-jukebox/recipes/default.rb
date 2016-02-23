@@ -18,12 +18,12 @@ end
 
 execute 'install mopidy-cacher' do
 	cwd File.join(files_default, "mopidy-cacher")
-	command 'python setup.py install'
+	command 'pip install -e .'
 end
 
 execute 'install mopidy-musicbox-webclient' do
 	cwd File.join(files_default, "mopidy-musicbox-webclient")
-	command 'python setup.py install'
+	command 'pip install -e .'
 end
 
 user 'mopidy' do
