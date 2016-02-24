@@ -40,7 +40,7 @@ setup(
     cmdclass={'install_lib': conf_install_lib},
     entry_points={
         'mopidy.ext': [
-            'cacher = mopidy_cacher:Extension',
+            'cacher = mopidy_cacher:CacherExtension',
         ],
     },
     classifiers=[
