@@ -34,6 +34,9 @@ class BaseRequestHandler(tornado.web.RequestHandler):
 			self._connection = connect(self.db_path)
 		return self._connection
 
+	def set_default_headers(self):
+		self.set_header('Content-Type', 'application/json')
+
 class RootRequestHandler(BaseRequestHandler):
 	def get(self):
 		with self._connect() as connection:
