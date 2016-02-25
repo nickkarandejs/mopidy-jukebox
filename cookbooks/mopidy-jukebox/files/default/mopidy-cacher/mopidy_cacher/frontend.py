@@ -2,10 +2,10 @@ from __future__ import absolute_import, unicode_literals
 
 import os
 import sqlite3
-import json
 
 import tornado.web
 import tornado.wsgi
+from tornado.escape import json_encode
 
 from .schema import *
 from .extension import CacherExtension
@@ -38,7 +38,7 @@ class RootRequestHandler(BaseRequestHandler):
 	def get(self):
 		with self._connect() as connection:
 			items = sources(connection)
-			self.write(json.dumps(items))
+			self.write(json_encode(items))
 
 	def post(self):
 		url = self.get_body_argument("url")
@@ -55,7 +55,7 @@ class ItemRequestHandler(BaseRequestHandler):
 		with self._connect() as connection:
 			try:
 				item = source(connection, url)
-				self.write(json.dumps(item))
+				self.write(json_encode(item))
 			except IndexError:
 				self.set_status(404, "Can't find '%s'" % url)
 
