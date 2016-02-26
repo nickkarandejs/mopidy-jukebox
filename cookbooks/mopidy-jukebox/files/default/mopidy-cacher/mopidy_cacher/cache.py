@@ -46,12 +46,12 @@ class CacherCommand(commands.Command):
         rows = self.load()
         now = time.time()
         for row in rows:
-            diff = now - row.last_check_time
-            logger.debug("Last check status: %r" % row.successful)
+            diff = now - row["last_check_time"]
+            logger.debug("Last check status: %r" % row["successful"])
             logger.debug("Time since last update: %d seconds" % diff)
-            if row.successful and diff < 30 * 60: # half an hour
+            if row["successful"] and diff < 30 * 60: # half an hour
                 continue
-            url = row.url
+            url = row["url"]
             logger.info("Caching %s" % url)
             cmd = ["wget", "--mirror", url, "-P", self._music_store_dir]
             logger.debug(" ".join(cmd))
