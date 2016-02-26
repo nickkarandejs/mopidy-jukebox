@@ -36,6 +36,7 @@ setup(
         'setuptools',
         'Mopidy >= 1.0',
         'Pykka >= 1.1',
+        'validators >= 0.10',
     ],
     cmdclass={'install_lib': conf_install_lib},
     entry_points={

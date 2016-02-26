@@ -9,6 +9,7 @@ from tornado.escape import json_encode
 
 from .schema import *
 from .extension import CacherExtension
+import validators
 
 def get_db_path(config):
 	_data_dir = CacherExtension.get_data_dir(config)
@@ -45,6 +46,9 @@ class RootRequestHandler(BaseRequestHandler):
 
 	def post(self):
 		url = self.get_body_argument("url")
+		if not validators.url(url, require_tld = False):
+			self.set_status(400, "bad URL")
+			return
 		with self._connect() as connection:
 			try:
 				createSource(connection, url)
