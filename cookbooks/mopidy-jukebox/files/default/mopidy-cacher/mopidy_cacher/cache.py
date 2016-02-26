@@ -53,7 +53,7 @@ class CacherCommand(commands.Command):
                 continue
             url = row["url"]
             logger.info("Caching %s" % url)
-            cmd = ["wget", "--mirror", url, "-P", self._music_store_dir]
+            cmd = ["wget", "--mirror", "--no-parent", url, "-P", self._music_store_dir]
             logger.debug(" ".join(cmd))
             popen = subprocess.Popen(cmd, stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
             (stdoutdata, stderrdata) = popen.communicate()
