@@ -19,16 +19,6 @@ class CacherExtension(ext.Extension):
         return CacherCommand(self)
 
     def setup(self, registry):
-        pass
-        #from .backend import CacherBackend
-        #registry.add('backend', CacherBackend)
-
-        # TODO: Edit or remove entirely
-        #registry.add('http:static', {
-        #    'name': self.ext_name,
-        #    'path': os.path.join(os.path.dirname(__file__), 'static'),
-        #})
-
         from .frontend import cacher_app_factory
 
         registry.add('http:app', {
