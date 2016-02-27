@@ -12,6 +12,7 @@ class CacherExtension(ext.Extension):
 
     def get_config_schema(self):
         schema = super(CacherExtension, self).get_config_schema()
+        schema['time_since_last'] = config.Integer(minimum = 0)
         return schema
 
     def get_command(self):

@@ -49,7 +49,7 @@ class CacherCommand(commands.Command):
             diff = now - row["last_check_time"]
             logger.debug("Last check status: %r" % row["successful"])
             logger.debug("Time since last update: %d seconds" % diff)
-            if row["successful"] and diff < 30 * 60: # half an hour
+            if row["successful"] and diff < config['cacher']['time_since_last']:
                 continue
             url = row["url"]
             logger.info("Caching %s" % url)
