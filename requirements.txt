@@ -4,12 +4,15 @@
 #
 #    pip-compile requirements.in
 #
+-e mopidy-cacher
+-e mopidy-musicbox-webclient
 backports-abc==0.4        # via tornado
 backports.ssl-match-hostname==3.5.0.1  # via tornado
 certifi==2015.4.28
 cffi==1.5.2               # via cryptography
 click==6.2                # via pip-tools
 cryptography==1.2.2       # via pyopenssl
+decorator==4.0.9          # via validators
 enum34==1.1.2             # via cryptography
 first==2.0.1              # via pip-tools
 idna==2.0                 # via cryptography
@@ -27,9 +30,10 @@ pyopenssl==0.15.1         # via ndg-httpsclient, requests
 pysqlite==2.8.1
 requests[security]==2.9.1
 singledispatch==3.4.0.3   # via tornado
-six==1.10.0               # via cryptography, pip-tools, pyopenssl, singledispatch
+six==1.10.0               # via cryptography, pip-tools, pyopenssl, singledispatch, validators
 tornado==4.3              # via mopidy
 uritools==1.0.1           # via mopidy-local-sqlite
+validators==0.10
 youtube-dl==2016.02.13    # via pafy
 
 # The following packages are commented out because they are

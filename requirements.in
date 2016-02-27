@@ -5,3 +5,5 @@ pip-tools==1.6
 pysqlite
 requests[security]
 certifi==2015.4.28
+-e mopidy-cacher
+-e mopidy-musicbox-webclient
