@@ -11,6 +11,17 @@ include_recipe "python::pip"
 
 files_default = File.realpath(File.join(File.dirname(__FILE__), "..", "files/default"))
 
+# This is a horrible hack, and I really should be using the local libraries in a different way
+ruby_block "remove local libraries" do
+  block do
+    rc = Chef::Util::FileEdit.new(File.join(files_default, "requirements.txt"))
+    rc.search_file_delete_line(
+      /^-e .*$/
+    )
+    rc.write_file
+  end
+end
+
 python_pip File.join(files_default, "requirements.txt") do
 	options "-r"
 	action :install
