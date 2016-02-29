@@ -1,5 +1,5 @@
 Mopidy==2.0.0
-Mopidy-Local-SQLite==1.0.0
+-e git+git://github.com/palfrey/mopidy-local-sqlite.git@incremental-commit#egg=Mopidy-Local-SQLite
 Mopidy-Youtube==2.0.2
 pip-tools==1.6
 pysqlite

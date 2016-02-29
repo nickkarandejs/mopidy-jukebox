@@ -6,6 +6,7 @@
 #
 -e mopidy-cacher
 -e mopidy-musicbox-webclient
+-e git+git://github.com/palfrey/mopidy-local-sqlite.git@incremental-commit#egg=Mopidy-Local-SQLite
 backports-abc==0.4        # via tornado
 backports.ssl-match-hostname==3.5.0.1  # via tornado
 certifi==2015.4.28
@@ -17,7 +18,6 @@ enum34==1.1.2             # via cryptography
 first==2.0.1              # via pip-tools
 idna==2.0                 # via cryptography
 ipaddress==1.0.16         # via cryptography, uritools
-Mopidy-Local-SQLite==1.0.0
 Mopidy-Youtube==2.0.2
 mopidy==2.0.0
 ndg-httpsclient==0.4.0    # via requests
@@ -25,17 +25,17 @@ pafy==0.4.3               # via mopidy-youtube
 pip-tools==1.6
 pyasn1==0.1.9             # via cryptography, requests
 pycparser==2.14           # via cffi
-Pykka==1.2.1              # via mopidy, mopidy-local-sqlite, mopidy-youtube
+Pykka==1.2.1              # via mopidy, mopidy-youtube
 pyopenssl==0.15.1         # via ndg-httpsclient, requests
 pysqlite==2.8.1
 requests[security]==2.9.1
 singledispatch==3.4.0.3   # via tornado
 six==1.10.0               # via cryptography, pip-tools, pyopenssl, singledispatch, validators
 tornado==4.3              # via mopidy
-uritools==1.0.1           # via mopidy-local-sqlite
+uritools==1.0.1
 validators==0.10
 youtube-dl==2016.02.13    # via pafy
 
 # The following packages are commented out because they are
 # considered to be unsafe in a requirements file:
-# setuptools                # via cryptography, mopidy, mopidy-local-sqlite, mopidy-youtube
+# setuptools                # via cryptography, mopidy, mopidy-youtube
