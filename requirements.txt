@@ -8,7 +8,7 @@
 -e mopidy-musicbox-webclient
 -e git+git://github.com/palfrey/mopidy-local-sqlite.git@incremental-commit#egg=Mopidy-Local-SQLite
 backports-abc==0.4        # via tornado
-backports.ssl-match-hostname==3.5.0.1  # via tornado
+backports.ssl-match-hostname==3.5.0.1  # via tornado, websocket-client
 certifi==2015.4.28
 cffi==1.5.2               # via cryptography
 click==6.2                # via pip-tools
@@ -30,10 +30,12 @@ pyopenssl==0.15.1         # via ndg-httpsclient, requests
 pysqlite==2.8.1
 requests[security]==2.9.1
 singledispatch==3.4.0.3   # via tornado
-six==1.10.0               # via cryptography, pip-tools, pyopenssl, singledispatch, validators
+six==1.10.0               # via cryptography, pip-tools, pyopenssl, singledispatch, validators, websocket-client
+slackclient==1.0.0
 tornado==4.3              # via mopidy
 uritools==1.0.1
 validators==0.10
+websocket-client==0.35.0  # via slackclient
 youtube-dl==2016.02.13    # via pafy
 
 # The following packages are commented out because they are
