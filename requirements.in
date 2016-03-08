@@ -9,3 +9,4 @@ certifi==2015.4.28
 -e mopidy-musicbox-webclient
 
 slackclient==1.0.0
+Mopidy-Tachikoma
