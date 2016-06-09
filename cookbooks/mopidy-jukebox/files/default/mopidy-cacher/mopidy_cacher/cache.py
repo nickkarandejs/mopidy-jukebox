@@ -9,12 +9,11 @@ import time
 logger = logging.getLogger(__name__)
 
 class CacherCommand(commands.Command):
-    help = 'Some text that will show up in --help'
+    help = 'Refresh local cache of remote files'
 
     def __init__(self, ext):
         super(CacherCommand, self).__init__()
         self.ext = ext
-        self.add_argument('--foo')
 
     def _connect(self):
         if not self._connection:
@@ -37,6 +36,8 @@ class CacherCommand(commands.Command):
             self._media_dir = config['local']['media_dir']
         except KeyError:
             raise ExtensionError('Mopidy-Local not enabled')
+        if self._media_dir == None:
+            raise ExtensionError("local/media_dir is not set")
         self._music_store_dir = os.path.join(self._media_dir, "cacher")
         self._data_dir = self.ext.get_data_dir(config)
         self._dbpath = os.path.join(self._data_dir, b'cacher.db')
