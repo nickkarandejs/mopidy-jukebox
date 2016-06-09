@@ -1,4 +1,6 @@
-Mopidy==2.0.0
+# Switch Mopidy back to normal once we've got 2.0.1 out for https://github.com/mopidy/mopidy/issues/1458
+-e git+https://github.com/mopidy/mopidy@develop#egg=mopidy
+
 Mopidy-Local-SQLite
 Mopidy-Youtube==2.0.2
 pip-tools==1.6
