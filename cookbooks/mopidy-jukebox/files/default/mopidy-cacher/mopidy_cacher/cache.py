@@ -5,6 +5,7 @@ import logging
 from . import schema
 import subprocess
 import time
+import tempfile
 
 logger = logging.getLogger(__name__)
 
@@ -56,13 +57,14 @@ class CacherCommand(commands.Command):
             logger.info("Caching %s" % url)
             cmd = ["wget", "--mirror", "--no-parent", url, "-P", self._music_store_dir]
             logger.debug(" ".join(cmd))
-            popen = subprocess.Popen(cmd, stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
-            (stdoutdata, stderrdata) = popen.communicate()
+            f = tempfile.NamedTemporaryFile(suffix = "mopidy-cacher")
+            popen = subprocess.Popen(cmd, stdout = f, stderr = subprocess.PIPE)
+            errcode = popen.wait()
+            f.close()
             with self._connect() as connection:
-                logger.info("Finished caching %s with result %d" % (url, popen.returncode))
-                if popen.returncode != 0:
-                    logger.warning(stderrdata)
-                    logger.warning(stdoutdata)
+                logger.info("Finished caching %s with result %d" % (url, errcode))
+                if errcode != 0:
+                    logger.warning(popen.stderr.read())
                     schema.update_source(connection, url, False)
                 else:
                     schema.update_source(connection, url, True)
