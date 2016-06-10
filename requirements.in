@@ -12,3 +12,6 @@ certifi==2015.4.28
 
 slackclient==1.0.0
 Mopidy-Tachikoma
+
+# Fixes https://github.com/pyca/cryptography/issues/2750
+cryptography>=1.2.3

@@ -13,7 +13,7 @@ backports.ssl-match-hostname==3.5.0.1  # via tornado, websocket-client
 certifi==2015.4.28
 cffi==1.5.2               # via cryptography
 click==6.2                # via pip-tools
-cryptography==1.2.2       # via pyopenssl
+cryptography==1.4
 decorator==4.0.9          # via validators
 enum34==1.1.2             # via cryptography
 first==2.0.1              # via pip-tools
