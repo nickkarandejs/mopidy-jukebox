@@ -1,5 +1,8 @@
-# Switch Mopidy back to normal once we've got 2.0.1 out for https://github.com/mopidy/mopidy/issues/1458
--e git+https://github.com/mopidy/mopidy@develop#egg=mopidy
+# Switch Mopidy back to normal once we've got a fix for
+# * https://github.com/mopidy/mopidy/issues/1458 (soft volume)
+# * https://github.com/mopidy/mopidy/pull/1525 (ValueError when dates are bad in tags)
+# This will probably occur in 2.0.1...
+-e git+https://github.com/palfrey/mopidy@dodgy-date-tags#egg=mopidy
 
 Mopidy-Local-SQLite
 Mopidy-Youtube==2.0.2
