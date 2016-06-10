@@ -23,7 +23,7 @@ ruby_block "remove local libraries" do
 end
 
 python_pip File.join(files_default, "requirements.txt") do
-	options "-r"
+	options "--exists-action w -r"
 	action :install
 end
 
