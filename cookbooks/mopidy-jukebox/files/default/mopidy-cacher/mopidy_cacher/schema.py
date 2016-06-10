@@ -43,7 +43,7 @@ def delete(c, url):
     c.execute('DELETE FROM sources where url = ?', (url,))
 
 def sources(c):
-    return c.execute('SELECT * FROM sources order by last_check_time desc').fetchall()
+    return c.execute('SELECT * FROM sources order by last_check_time asc').fetchall()
 
 def createSource(c, url):
     c.execute('insert into sources values (?, 0, 0)', (url,))
