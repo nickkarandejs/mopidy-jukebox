@@ -74,3 +74,23 @@ service 'mopidy' do
 	provider Chef::Provider::Service::Systemd
 	action :start
 end
+
+cron 'cache update' do
+  action :create
+  minute '0'
+  hour '0'
+  user 'mopidy'
+  mailto 'palfrey@lshift.net'
+  home '/home/mopidy'
+  command "/usr/local/bin/mopidy --config /usr/share/mopidy/conf.d:/etc/mopidy/mopidy.conf cacher"
+end
+
+cron 'local scan' do
+  action :create
+  minute '0'
+  hour '4'
+  user 'mopidy'
+  mailto 'palfrey@lshift.net'
+  home '/home/mopidy'
+  command "/usr/local/bin/mopidy --config /usr/share/mopidy/conf.d:/etc/mopidy/mopidy.conf local sc"
+end
