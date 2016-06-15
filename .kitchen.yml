@@ -3,10 +3,11 @@ driver_plugin: docker
 driver_config:
   privileged: true
   use_sudo: false
-  image: debian:8.5
+  run_command: /sbin/init
+  eflags: container=docker
 
 platforms:
-  - name: debian
+  - name: debian-8.5
 
 suites:
   - name: default
