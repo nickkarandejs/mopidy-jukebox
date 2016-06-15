@@ -1,0 +1,15 @@
+---
+driver_plugin: docker
+driver_config:
+  privileged: true
+  use_sudo: false
+  image: debian:8.5
+
+platforms:
+  - name: debian
+
+suites:
+  - name: default
+    run_list:
+      - recipe[mopidy-jukebox]
+    attributes: {}
