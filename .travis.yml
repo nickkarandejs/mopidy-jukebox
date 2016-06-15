@@ -2,6 +2,7 @@ rvm: 2.2
 
 sudo: required
 services: docker
+cache: bundler
 
 install: bundle install
 
