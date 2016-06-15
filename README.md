@@ -1,6 +1,8 @@
 mopidy-jukebox
 ==============
 
+[![Build Status](https://travis-ci.org/palfrey/mopidy-jukebox.svg?branch=master)](https://travis-ci.org/palfrey/mopidy-jukebox)
+
 As the name suggests, it’s based off of [Mopidy](https://www.mopidy.com/). I went through the many and varied frontends for Mopidy, and found the [Mopidy-MusicBox-Webclient](https://github.com/pimusicbox/mopidy-musicbox-webclient), which got pretty close to what we needed for a frontend – it looks nice, the search is decent – but it is still designed towards the single-person use case. I’ve [forked it](https://github.com/palfrey/mopidy-musicbox-webclient/tree/nih) and started ripping parts out so it better fits our use (many people picking tracks, but they should all be by default just added to the end of the queue, not override the queue).
 
 The other item we needed was playback over HTTP from everyone’s machines, for compatibility with the existing music libraries. Mopidy doesn’t have this out of the box, and I couldn’t find a plugin to do this, so I ended up doing this in a way we’ve talked about for a while for the existing jukebox, namely by [writing an extension to cache files](cookbooks/mopidy-jukebox/files/default/mopidy-cacher) from the music libraries on people’s machines and then just handing it over to the Mopidy local file scanning. I then extended out further the Musicbox frontend to allow new sources to be added and status of them to be determined. I even added in Chef cookbooks, so that I could install it all on a Raspberry Pi and use my Raspberry Chef work with it (which has now been extended to support Berkshelf).
