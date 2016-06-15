@@ -1,7 +1,9 @@
 # Cookbook Name:: mopidy-jukebox
 # Recipe:: default
 
-%w{libsqlite3-dev libffi-dev gstreamer1.0-fluendo-mp3 gstreamer1.0-plugins-bad gstreamer1.0-alsa gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly libssl-dev gir1.2-gstreamer-1.0 gir1.2-gst-plugins-base-1.0 python-dev python-gi}.each do |pkg|
+include_recipe 'build-essential::default'
+
+%w{libsqlite3-dev libffi-dev gstreamer1.0-fluendo-mp3 gstreamer1.0-plugins-bad gstreamer1.0-alsa gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly libssl-dev gir1.2-gstreamer-1.0 gir1.2-gst-plugins-base-1.0 python-dev python-gi cron}.each do |pkg|
 	package pkg do
 		action :install
 	end
@@ -70,11 +72,6 @@ cookbook_file "/etc/mopidy/mopidy.conf" do
 	mode "0644"
 end
 
-service 'mopidy' do
-	provider Chef::Provider::Service::Systemd
-	action :start
-end
-
 cron 'cache update' do
   action :create
   minute '0'
@@ -93,4 +90,9 @@ cron 'local scan' do
   mailto 'palfrey@lshift.net'
   home '/home/mopidy'
   command "/usr/local/bin/mopidy --config /usr/share/mopidy/conf.d:/etc/mopidy/mopidy.conf local sc"
+end
+
+service 'mopidy' do
+	provider Chef::Provider::Service::Systemd
+	action :start
 end

@@ -1,5 +1,8 @@
-ENV
+ENV/
 mopidy.log
 
-nodes
-berks-cookbooks
+nodes/
+berks-cookbooks/
+vendor/
+.bundle/
+.kitchen/

@@ -1,0 +1,16 @@
+---
+driver_plugin: docker
+driver_config:
+  privileged: true
+  use_sudo: false
+  run_command: /sbin/init
+  eflags: container=docker
+
+platforms:
+  - name: debian-8.5
+
+suites:
+  - name: default
+    run_list:
+      - recipe[mopidy-jukebox]
+    attributes: {}
