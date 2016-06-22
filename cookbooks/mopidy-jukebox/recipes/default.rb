@@ -76,9 +76,8 @@ cron 'cache update' do
   action :create
   minute '0'
   hour '0'
-  user 'mopidy'
+  user 'root'
   mailto 'palfrey@lshift.net'
-  home '/home/mopidy'
   command "/usr/local/bin/mopidy --config /usr/share/mopidy/conf.d:/etc/mopidy/mopidy.conf cacher"
 end
 
@@ -86,10 +85,9 @@ cron 'local scan' do
   action :create
   minute '0'
   hour '4'
-  user 'mopidy'
+  user 'root'
   mailto 'palfrey@lshift.net'
-  home '/home/mopidy'
-  command "/usr/local/bin/mopidy --config /usr/share/mopidy/conf.d:/etc/mopidy/mopidy.conf local sc"
+  command "/usr/local/bin/mopidy --config /usr/share/mopidy/conf.d:/etc/mopidy/mopidy.conf local scan"
 end
 
 service 'mopidy' do
