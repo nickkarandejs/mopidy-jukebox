@@ -16,7 +16,9 @@ def nonBlockRead(output):
     fl = fcntl.fcntl(fd, fcntl.F_GETFL)
     fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NONBLOCK)
     try:
-        return output.read()
+        res = output.read()
+        print res
+        return res
     except:
         return ''
 
