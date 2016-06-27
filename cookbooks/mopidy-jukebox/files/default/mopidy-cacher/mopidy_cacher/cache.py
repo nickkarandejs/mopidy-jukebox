@@ -60,6 +60,14 @@ def runcmd(cmdline):
 
     return (returncode, stdout, stderr)
 
+def decodeName(name):
+    if type(name) == str: # leave unicode ones alone
+        try:
+            name = name.decode('utf8')
+        except:
+            name = name.decode('windows-1252')
+    return name
+
 class CacherCommand(commands.Command):
     help = 'Refresh local cache of remote files'
 
@@ -108,7 +116,7 @@ class CacherCommand(commands.Command):
             logger.info("Caching %s" % url)
             cmd = ["wget", "--recursive", "--progress=bar:force", "--level=inf", "--no-parent", "-nc", url, "-P", self._music_store_dir]
             (returncode, stdout, stderr) = runcmd(cmd)
-            path = os.path.join(self._music_store_dir, urllib.unquote(url.replace("http://","")))
+            path = decodeName(os.path.join(self._music_store_dir, urllib.unquote(url.replace("http://",""))))
             for root, dirs, files in os.walk(path):
                 for f in files:
                     if f.startswith("index.html"):
