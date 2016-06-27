@@ -7,6 +7,7 @@ import subprocess
 import time
 import fcntl
 import time
+import urllib
 
 logger = logging.getLogger(__name__)
 
@@ -105,8 +106,13 @@ class CacherCommand(commands.Command):
                 continue
             url = row["url"]
             logger.info("Caching %s" % url)
-            cmd = ["wget", "--recursive", "--level=inf", "--no-parent", "-nc", url, "-P", self._music_store_dir]
+            cmd = ["wget", "--recursive", "--progress=bar:force", "--level=inf", "--no-parent", "-nc", url, "-P", self._music_store_dir]
             (returncode, stdout, stderr) = runcmd(cmd)
+            path = os.path.join(self._music_store_dir, urllib.unquote(url.replace("http://","")))
+            for root, dirs, files in os.walk(path):
+                for f in files:
+                    if f.startswith("index.html"):
+                        os.remove(os.path.join(root, f))
             with self._connect() as connection:
                 logger.info("Finished caching %s with result %d" % (url, returncode))
                 if returncode != 0:
