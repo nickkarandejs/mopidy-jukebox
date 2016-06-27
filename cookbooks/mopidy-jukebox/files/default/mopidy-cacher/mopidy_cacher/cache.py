@@ -5,9 +5,57 @@ import logging
 from . import schema
 import subprocess
 import time
-import tempfile
+import fcntl
+import time
 
 logger = logging.getLogger(__name__)
+
+# From http://stackoverflow.com/a/3626858/320546
+def nonBlockRead(output):
+    fd = output.fileno()
+    fl = fcntl.fcntl(fd, fcntl.F_GETFL)
+    fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NONBLOCK)
+    try:
+        return output.read()
+    except:
+        return ''
+
+def runcmd(cmdline):
+    """
+    Execute cmdline.
+    Uses the subprocess module and subprocess.PIPE.
+
+    Raises TimeoutInterrupt
+    """
+
+    p = subprocess.Popen(
+        cmdline,
+        bufsize = 0, # default value of 0 (unbuffered) is best
+        shell   = False, # not really needed; it's disabled by default
+        stdout  = subprocess.PIPE,
+        stderr  = subprocess.PIPE
+    )
+
+    stdout = ''
+    stderr = ''
+
+    while p.poll() is None: # Monitor process
+        # p.std* blocks on read(), which messes up the timeout timer.
+        # To fix this, we use a nonblocking read()
+        stdout += nonBlockRead(p.stdout)
+        stderr += nonBlockRead(p.stderr)
+
+    try:
+        p.stdout.close()  # If they are not closed the fds will hang around until
+        p.stderr.close()  # os.fdlimit is exceeded and cause a nasty exception
+        p.terminate()     # Important to close the fds prior to terminating the process!
+                          # NOTE: Are there any other "non-freed" resources?
+    except:
+        pass
+
+    returncode = p.returncode
+
+    return (returncode, stdout, stderr)
 
 class CacherCommand(commands.Command):
     help = 'Refresh local cache of remote files'
@@ -56,15 +104,12 @@ class CacherCommand(commands.Command):
             url = row["url"]
             logger.info("Caching %s" % url)
             cmd = ["wget", "--mirror", "--no-parent", url, "-P", self._music_store_dir]
-            logger.debug(" ".join(cmd))
-            f = tempfile.NamedTemporaryFile(suffix = "mopidy-cacher")
-            popen = subprocess.Popen(cmd, stdout = f, stderr = subprocess.PIPE)
-            errcode = popen.wait()
-            f.close()
+            (returncode, stdout, stderr) = runcmd(cmd)
             with self._connect() as connection:
-                logger.info("Finished caching %s with result %d" % (url, errcode))
-                if errcode != 0:
-                    logger.warning(popen.stderr.read())
+                logger.info("Finished caching %s with result %d" % (url, returncode))
+                if returncode != 0:
+                    logger.warning(stdout)
+                    logger.warning(stderr)
                     schema.update_source(connection, url, False)
                 else:
                     schema.update_source(connection, url, True)
