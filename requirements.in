@@ -5,7 +5,10 @@
 -e git+https://github.com/palfrey/mopidy@dodgy-date-tags#egg=mopidy
 
 Mopidy-Local-SQLite
-Mopidy-Youtube==2.0.2
+
+# Switch Mopidy-Youtube back to normal once https://github.com/mopidy/mopidy-youtube/pull/46 is merged
+-e git+https://github.com/chatziko/mopidy-youtube@performance-improvements-3#egg=Mopidy-Youtube
+
 pip-tools==1.6
 pysqlite
 requests[security]
