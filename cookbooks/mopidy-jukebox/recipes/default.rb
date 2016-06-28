@@ -18,7 +18,7 @@ ruby_block "remove local libraries" do
   block do
     rc = Chef::Util::FileEdit.new(File.join(files_default, "requirements.txt"))
     rc.search_file_delete_line(
-      /^-e .*$/
+      /^-e mopidy.*$/
     )
     rc.write_file
   end
