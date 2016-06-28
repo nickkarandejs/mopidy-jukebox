@@ -128,8 +128,11 @@ class CacherCommand(commands.Command):
             with self._connect() as connection:
                 logger.info("Finished caching %s with result %d" % (url, returncode))
                 if returncode != 0:
-                    logger.warning(stdout)
-                    logger.warning(stderr)
+                    try:
+                        logger.warning(stdout)
+                        logger.warning(stderr)
+                    except UnicodeDecodeError:
+                        pass
                     schema.update_source(connection, url, False)
                 else:
                     schema.update_source(connection, url, True)
