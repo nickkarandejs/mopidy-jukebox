@@ -114,7 +114,7 @@ class CacherCommand(commands.Command):
                 continue
             url = row["url"]
             logger.info("Caching %s" % url)
-            cmd = ["wget", "--recursive", "--tries=1", "--progress=bar:force", "--level=inf", "--no-parent", "-nc", url, "-P", self._music_store_dir]
+            cmd = ["wget", "--recursive", "--tries=1", "--timeout=30", "--progress=bar:force", "--level=inf", "--no-parent", "-nc", url, "-P", self._music_store_dir]
             (returncode, stdout, stderr) = runcmd(cmd)
             path = decodeName(os.path.join(self._music_store_dir, urllib.unquote(url.replace("http://",""))))
             print "path", path
