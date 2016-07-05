@@ -46,7 +46,7 @@ user 'mopidy' do
 end
 
 execute 'reload systemd' do
-	command 'systemctl daemon-reload'
+	command 'systemctl daemon-reload && systemctl enable mopidy.service'
 	action :nothing
 end
 
