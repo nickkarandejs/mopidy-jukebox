@@ -96,3 +96,15 @@ end
 package %w{epiphany-browser xorg lxde-core lxsession lxlauncher nginx} do
 	action :install
 end
+
+execute 'reload nginx' do
+	command '/etc/init.d/nginx reload'
+	action :nothing
+end
+
+cookbook_file "/etc/nginx/sites-available/default" do
+	source "nginx.conf"
+	owner "root"
+	mode "0644"
+	notifies :run, 'execute[reload nginx]', :immediately
+end
