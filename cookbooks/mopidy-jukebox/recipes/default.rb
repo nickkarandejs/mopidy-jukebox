@@ -92,3 +92,7 @@ service 'mopidy' do
 	provider Chef::Provider::Service::Systemd
 	action :start
 end
+
+package %w{epiphany-browser xorg lxde-core lxsession lxlauncher nginx} do
+	action :install
+end
