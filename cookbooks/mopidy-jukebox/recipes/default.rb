@@ -100,7 +100,7 @@ end
 end
 
 execute 'reload nginx' do
-	command '/etc/init.d/nginx reload'
+	command 'systemctl start nginx.service && /etc/init.d/nginx reload'
 	action :nothing
 end
 
