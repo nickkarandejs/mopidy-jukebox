@@ -72,6 +72,13 @@ cookbook_file "/etc/mopidy/mopidy.conf" do
 	mode "0644"
 end
 
+cookbook_file "/etc/mopidy/mopidy-local.conf" do
+	action :create_if_missing
+	source "mopidy-local.conf"
+	owner "mopidy"
+	mode "0644"
+end
+
 cron 'cache update' do
   action :create
   minute '0'
