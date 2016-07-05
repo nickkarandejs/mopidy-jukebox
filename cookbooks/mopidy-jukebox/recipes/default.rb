@@ -93,8 +93,10 @@ service 'mopidy' do
 	action :start
 end
 
-package %w{epiphany-browser xorg lxde-core lxsession lxlauncher nginx lightdm} do
-	action :install
+%w{epiphany-browser lxde-core lxsession lxlauncher nginx lightdm}.each do |pkg|
+	package pkg do
+		action :install
+	end
 end
 
 execute 'reload nginx' do
