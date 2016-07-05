@@ -48,7 +48,7 @@ user 'mopidy' do
 end
 
 execute 'reload systemd' do
-	command 'systemctl daemon-reload'
+	command 'systemctl daemon-reload && systemctl enable mopidy.service'
 	action :nothing
 end
 
@@ -93,4 +93,22 @@ end
 service 'mopidy' do
 	provider Chef::Provider::Service::Systemd
 	action :start
+end
+
+%w{epiphany-browser lxde-core lxsession lxlauncher nginx lightdm}.each do |pkg|
+	package pkg do
+		action :install
+	end
+end
+
+execute 'reload nginx' do
+	command 'systemctl start nginx.service && /etc/init.d/nginx reload'
+	action :nothing
+end
+
+cookbook_file "/etc/nginx/sites-available/default" do
+	source "nginx.conf"
+	owner "root"
+	mode "0644"
+	notifies :run, 'execute[reload nginx]', :immediately
 end
