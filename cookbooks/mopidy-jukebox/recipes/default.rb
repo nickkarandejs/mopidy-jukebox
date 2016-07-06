@@ -102,7 +102,7 @@ service 'mopidy' do
 	action :start
 end
 
-%w{epiphany-browser lxde-core lxsession lxlauncher nginx lightdm}.each do |pkg|
+%w{luakit lxde-core lxsession lxlauncher nginx lightdm}.each do |pkg|
 	package pkg do
 		action :install
 	end
