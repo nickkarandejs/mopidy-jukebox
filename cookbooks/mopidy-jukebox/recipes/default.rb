@@ -118,12 +118,12 @@ end
 
 service 'nginx' do
 	provider Chef::Provider::Service::Systemd
-	action :nothing
+	action [:enable, :start]
 end
 
 cookbook_file "/etc/nginx/sites-available/default" do
 	source "nginx.conf"
 	owner "root"
 	mode "0644"
-	notifies [:enable, :start, :reload], 'service[nginx]', :immediately
+	notifies :reload, 'service[nginx]', :immediately
 end
