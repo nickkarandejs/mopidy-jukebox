@@ -102,7 +102,15 @@ service 'mopidy' do
 	action [:enable, :start]
 end
 
-%w{luakit lxde-core lxsession lxlauncher nginx lightdm}.each do |pkg|
+if node["lsb"]["id"] == "Raspbian"
+	package "luakit" do
+		action :install
+	end
+else
+	Chef::Log.info("Running Debian, not Raspbian, so no luakit")
+end
+
+%w{lxde-core lxsession lxlauncher nginx lightdm}.each do |pkg|
 	package pkg do
 		action :install
 	end
