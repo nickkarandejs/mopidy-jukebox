@@ -5,6 +5,7 @@ gem 'berkshelf', '~> 4.0'
 
 group :integration do
   gem 'test-kitchen', '~> 1.9', '>= 1.9.2'
+  gem 'foodcritic'
 end
 
 group :docker do

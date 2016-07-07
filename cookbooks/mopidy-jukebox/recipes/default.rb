@@ -99,7 +99,7 @@ end
 
 service 'mopidy' do
 	provider Chef::Provider::Service::Systemd
-	action :start
+	action [:enable, :start]
 end
 
 %w{luakit lxde-core lxsession lxlauncher nginx lightdm}.each do |pkg|
@@ -108,8 +108,8 @@ end
 	end
 end
 
-execute 'reload nginx' do
-	command 'systemctl start nginx.service && /etc/init.d/nginx reload'
+service 'nginx' do
+	provider Chef::Provider::Service::Systemd
 	action :nothing
 end
 
@@ -117,5 +117,5 @@ cookbook_file "/etc/nginx/sites-available/default" do
 	source "nginx.conf"
 	owner "root"
 	mode "0644"
-	notifies :run, 'execute[reload nginx]', :immediately
+	notifies [:enable, :start, :reload], 'service[nginx]', :immediately
 end

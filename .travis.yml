@@ -10,4 +10,5 @@ install: bundle install
 before_script: sudo iptables -L DOCKER || sudo iptables -N DOCKER
 
 script:
+- bundle exec foodcritic cookbooks/mopidy-jukebox
 - bundle exec kitchen verify
