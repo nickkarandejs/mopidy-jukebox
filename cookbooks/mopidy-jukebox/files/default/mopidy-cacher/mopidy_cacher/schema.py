@@ -40,7 +40,8 @@ def source(c, url):
     return c.execute('SELECT * FROM sources where url = ?', (url,)).fetchall()[0]
 
 def delete(c, url):
-    c.execute('DELETE FROM sources where url = ?', (url,))
+    cursor = c.execute('DELETE FROM sources where url = ?', (url,))
+    return cursor.rowcount
 
 def sources(c):
     return c.execute('SELECT * FROM sources order by last_check_time asc').fetchall()

@@ -68,8 +68,8 @@ class ItemRequestHandler(BaseRequestHandler):
 
 	def delete(self, url):
 		with self._connect() as connection:
-			delete(connection, url)
-			self.set_status(204)
+			count = delete(connection, url)
+			self.set_status(204, "Deleted %s with count %d"% (url, count))
 
 def cacher_app_factory(config, core):
 	db_path = get_db_path(config)
