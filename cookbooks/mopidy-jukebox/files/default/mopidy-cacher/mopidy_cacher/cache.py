@@ -120,9 +120,12 @@ class CacherCommand(commands.Command):
             print "path", path
             try:
                 for root, dirs, files in os.walk(path):
+                    print "Walking", root
                     for f in files:
                         if f.startswith("index.html"):
-                            os.remove(os.path.join(root, f))
+                            fullpath = os.path.join(root, f)
+                            print "removing", fullpath
+                            os.remove(fullpath)
             except UnicodeDecodeError:
                 print "failed to delete *something*"
             with self._connect() as connection:
