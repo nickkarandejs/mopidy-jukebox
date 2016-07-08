@@ -116,18 +116,18 @@ class CacherCommand(commands.Command):
             logger.info("Caching %s" % url)
             cmd = ["wget", "--recursive", "--tries=1", "--timeout=30", "--progress=bar:force", "--level=inf", "--no-parent", "-nc", url, "-P", self._music_store_dir]
             (returncode, stdout, stderr) = runcmd(cmd)
-            path = decodeName(os.path.join(self._music_store_dir, urllib.unquote(url.replace("http://",""))))
+            path = str(os.path.join(self._music_store_dir, urllib.unquote(url.replace("http://",""))))
             print "path", path
             try:
                 for root, dirs, files in os.walk(path):
-                    print "Walking", root
                     for f in files:
                         if f.startswith("index.html"):
                             fullpath = os.path.join(root, f)
-                            print "removing", fullpath
+                            print "Removing", fullpath
                             os.remove(fullpath)
             except UnicodeDecodeError:
                 print "failed to delete *something*"
+                raise
             with self._connect() as connection:
                 logger.info("Finished caching %s with result %d" % (url, returncode))
                 if returncode != 0:
