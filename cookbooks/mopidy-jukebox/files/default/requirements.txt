@@ -19,7 +19,7 @@ first==2.0.1              # via pip-tools
 idna==2.1                 # via cryptography
 ipaddress==1.0.16         # via cryptography, uritools
 Mopidy-Local-SQLite==1.0.0
-Mopidy-Tachikoma==0.2.2
+Mopidy-Tachikoma==0.2.3
 Mopidy==2.0.1             # via mopidy-local-sqlite, mopidy-tachikoma
 ndg-httpsclient==0.4.2    # via requests
 pafy==0.5.1
