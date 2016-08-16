@@ -9,7 +9,7 @@ include_recipe 'build-essential::default'
 	end
 end
 
-python_runtime '2'
+include_recipe "python::pip"
 
 files_default = File.realpath(File.join(File.dirname(__FILE__), "..", "files/default"))
 
@@ -24,8 +24,8 @@ ruby_block "remove local libraries" do
   end
 end
 
-pip_requirements File.join(files_default, "requirements.txt") do
-	options "--exists-action w"
+python_pip File.join(files_default, "requirements.txt") do
+	options "--exists-action w -r"
 	action :install
 end
 
