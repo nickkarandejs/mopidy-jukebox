@@ -11,7 +11,7 @@ certifi==2015.4.28
 -e mopidy-cacher
 -e mopidy-musicbox-webclient
 
-Mopidy-Tachikoma>=0.2.3
+Mopidy-Tachikoma>=0.2.4
 
 # Fixes https://github.com/pyca/cryptography/issues/2750
 cryptography>=1.2.3
