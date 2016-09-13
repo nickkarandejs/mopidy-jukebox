@@ -46,7 +46,7 @@ class RootRequestHandler(BaseRequestHandler):
 
 	def post(self):
 		url = self.get_body_argument("url")
-		if not validators.url(url, require_tld = False):
+		if not validators.url(url):
 			self.set_status(400, "bad URL")
 			return
 		with self._connect() as connection:
