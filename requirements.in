@@ -13,7 +13,7 @@ certifi==2015.4.28
 
 Mopidy-Tachikoma>=0.2.4
 
-# Fixes https://github.com/pyca/cryptography/issues/2750
-cryptography>=1.2.3
+# Fixes https://github.com/pyca/cryptography/issues/2750 and https://github.com/pyca/cryptography/pull/2826
+cryptography>=1.5
 
 youtube-dl>=2016.8.13
