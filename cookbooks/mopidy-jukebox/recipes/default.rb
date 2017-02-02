@@ -136,14 +136,14 @@ ruby_block 'Edit Luakit config' do
 	block do
 		file = Chef::Util::FileEdit.new('/home/pi/.config/luakit/rc.lua')
 		file.insert_line_if_no_match('/w.win.fullscreen/', \
-	'for _, w in pairs(window.bywidget) do' \
-		'	w.win.fullscreen = true'\
-	'end')
+	'for _, w in pairs(window.bywidget) do\n' \
+		'	w.win.fullscreen = true\n'\
+	'end\n')
 		file.insert_line_if_no_match('/full_content_zoom/', \
-	'webview.init_funcs.set_default_zoom = function (view, w)'\
-		'	view.full_content_zoom = true -- optional'\
-		'	view.zoom_level = 3 -- a 50% zoom'\
-	'end')
+	'webview.init_funcs.set_default_zoom = function (view, w)\n'\
+		'	view.full_content_zoom = true -- optional\n'\
+		'	view.zoom_level = 3 -- a 50% zoom\n'\
+	'end\n')
 		file.write_file
 	end
 end
