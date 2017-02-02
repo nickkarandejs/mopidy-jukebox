@@ -3,12 +3,11 @@ driver_plugin: docker
 driver_config:
   privileged: true
   use_sudo: false
-  run_command: /sbin/init
   eflags: container=docker
   require_chef_omnibus: 11.12.8
 
 platforms:
-  - name: debian-8.5
+  - name: debian-stretch
 
 suites:
   - name: default

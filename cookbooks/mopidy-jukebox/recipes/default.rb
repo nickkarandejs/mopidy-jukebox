@@ -57,7 +57,7 @@ cookbook_file "/etc/systemd/system/mopidy.service" do
 	owner "root"
 	group "root"
 	mode "0644"
-	notifies :run, 'execute[reload systemd]', :immediately
+	notifies :run, 'execute[reload systemd]', :immediately unless ENV['TEST_KITCHEN']
 end
 
 directory '/etc/mopidy' do
@@ -99,18 +99,10 @@ end
 
 service 'mopidy' do
 	provider Chef::Provider::Service::Systemd
-	action [:enable, :start]
+	action [:enable, :start] unless ENV['TEST_KITCHEN']
 end
 
-if node["lsb"]["id"] == "Raspbian"
-	package "luakit" do
-		action :install
-	end
-else
-	Chef::Log.info("Running Debian, not Raspbian, so no luakit")
-end
-
-%w{lxde-core lxsession lxlauncher nginx lightdm}.each do |pkg|
+%w{luakit lxde-core lxsession lxlauncher nginx lightdm}.each do |pkg|
 	package pkg do
 		action :install
 	end
@@ -118,7 +110,7 @@ end
 
 service 'nginx' do
 	provider Chef::Provider::Service::Systemd
-	action [:enable, :start]
+	action [:enable, :start] unless ENV['TEST_KITCHEN']
 end
 
 cookbook_file "/etc/nginx/sites-available/default" do
