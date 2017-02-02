@@ -102,7 +102,7 @@ service 'mopidy' do
 	action [:enable, :start] unless ENV['TEST_KITCHEN']
 end
 
-%w{luakit lxde-core lxsession lxlauncher nginx lightdm}.each do |pkg|
+%w{luakit lxde-core lxsession lxlauncher nginx lightdm screen}.each do |pkg|
 	package pkg do
 		action :install
 	end
@@ -118,4 +118,67 @@ cookbook_file "/etc/nginx/sites-available/default" do
 	owner "root"
 	mode "0644"
 	notifies :reload, 'service[nginx]', :immediately
+end
+
+directory '/home/pi/.config/luakit' do
+	owner 'pi'
+	mode '0755'
+	action :create
+	recursive true
+end
+
+file '/home/pi/.config/luakit/rc.lua' do
+  content lazy { IO.read('/etc/xdg/luakit/rc.lua') }
+  action :create_if_missing
+end
+
+ruby_block 'Edit Luakit config' do
+	block do
+		file = Chef::Util::FileEdit.new('/home/pi/.config/luakit/rc.lua')
+		file.insert_line_if_no_match('/w.win.fullscreen/', \
+	'for _, w in pairs(window.bywidget) do' \
+		'	w.win.fullscreen = true'\
+	'end')
+		file.insert_line_if_no_match('/full_content_zoom/', \
+	'webview.init_funcs.set_default_zoom = function (view, w)'\
+		'	view.full_content_zoom = true -- optional'\
+		'	view.zoom_level = 3 -- a 50% zoom'\
+	'end')
+		file.write_file
+	end
+end
+
+ruby_block 'Edit Lightdm config' do
+  block do
+    file = Chef::Util::FileEdit.new('/etc/lightdm/lightdm.conf')
+	  file.search_file_replace_line('/#autologin-user=/', 'autologin-user=pi')
+    file.write_file
+  end
+end
+
+service 'lightdm' do
+	provider Chef::Provider::Service::Systemd
+	action [:enable, :start] unless ENV['TEST_KITCHEN']
+	subscribes :restart, 'ruby_block[Edit Lightdm config]' unless ENV['TEST_KITCHEN']
+end
+
+unless ENV['TEST_KITCHEN']
+	execute 'dpms set' do
+		command 'xset -dpms -display :0'
+		user 'pi'
+		action :run
+	end
+
+	execute 'screensaver off' do
+		command 'xset -display :0 s off'
+		user 'pi'
+		action :run
+	end
+
+	execute 'luakit' do
+		command 'screen -dmS luakit bash -c \'luakit http://jukebox/playlist-only.html\''
+		environment 'DISPLAY' => ':0'
+		user 'pi'
+		not_if 'screen -ls |grep luakit'
+	end
 end
