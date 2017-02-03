@@ -146,6 +146,10 @@ ruby_block 'Edit Luakit config' do
 	"end\n")
 		file.write_file
 	end
+	not_if {
+		::File.readlines('/home/pi/.config/luakit/rc.lua').grep(/w.win.fullscreen/).any? and \
+		::File.readlines('/home/pi/.config/luakit/rc.lua').grep(/full_content_zoom/).any?
+	 }
 end
 
 ruby_block 'Edit Lightdm config' do
@@ -154,12 +158,13 @@ ruby_block 'Edit Lightdm config' do
 	  file.search_file_replace_line('/#autologin-user=/', 'autologin-user=pi')
     file.write_file
   end
+	not_if { ::File.readlines('/etc/lightdm/lightdm.conf').grep(/autologin-user=pi/).any? }
 end
 
 service 'lightdm' do
 	provider Chef::Provider::Service::Systemd
 	action [:enable, :start] unless ENV['TEST_KITCHEN']
-	subscribes :restart, 'ruby_block[Edit Lightdm config]' unless ENV['TEST_KITCHEN']
+	subscribes :restart, 'ruby_block[Edit Lightdm config]', :immediately unless ENV['TEST_KITCHEN']
 end
 
 unless ENV['TEST_KITCHEN']
