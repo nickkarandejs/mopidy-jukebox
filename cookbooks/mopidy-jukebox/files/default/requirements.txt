@@ -40,7 +40,7 @@ tornado==4.4              # via mopidy
 uritools==1.0.2           # via mopidy-local-sqlite
 validators==0.10.3
 websocket-client==0.37.0  # via slackclient
-youtube-dl==2016.8.13
+youtube-dl==2017.02.04.1
 
 # The following packages are commented out because they are
 # considered to be unsafe in a requirements file:
