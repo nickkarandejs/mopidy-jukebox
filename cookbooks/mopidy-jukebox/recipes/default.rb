@@ -9,6 +9,10 @@ include_recipe 'build-essential::default'
 	end
 end
 
+cookbook_file '/etc/logrotate.d/rsyslog' do
+	source 'logrotate-rsyslog'
+end
+
 include_recipe "python::pip"
 
 files_default = File.realpath(File.join(File.dirname(__FILE__), "..", "files/default"))
