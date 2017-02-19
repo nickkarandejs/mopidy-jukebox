@@ -134,16 +134,17 @@ end
 file '/home/pi/.config/luakit/rc.lua' do
   content lazy { IO.read('/etc/xdg/luakit/rc.lua') }
   action :create_if_missing
+  user 'pi'
 end
 
 ruby_block 'Edit Luakit config' do
 	block do
 		file = Chef::Util::FileEdit.new('/home/pi/.config/luakit/rc.lua')
-		file.insert_line_if_no_match('/w.win.fullscreen/', \
+		file.insert_line_if_no_match(/w.win.fullscreen/, \
 	"for _, w in pairs(window.bywidget) do\n" \
 	"	w.win.fullscreen = true\n"\
 	"end\n")
-		file.insert_line_if_no_match('/full_content_zoom/', \
+		file.insert_line_if_no_match(/full_content_zoom/, \
 	"webview.init_funcs.set_default_zoom = function (view, w)\n"\
 		"	view.full_content_zoom = true -- optional\n"\
 		"	view.zoom_level = 3 -- a 50% zoom\n"\
@@ -159,7 +160,7 @@ end
 ruby_block 'Edit Lightdm config' do
   block do
     file = Chef::Util::FileEdit.new('/etc/lightdm/lightdm.conf')
-	  file.search_file_replace_line('/#autologin-user=/', 'autologin-user=pi')
+	  file.search_file_replace_line(/#autologin-user=/, 'autologin-user=pi')
     file.write_file
   end
 	not_if { ::File.readlines('/etc/lightdm/lightdm.conf').grep(/autologin-user=pi/).any? }
