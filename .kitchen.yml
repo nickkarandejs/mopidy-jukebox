@@ -1,16 +1,25 @@
 ---
-driver_plugin: docker
-driver_config:
+driver:
+  name: dokken
+  chef_version: 12.0.0
   privileged: true
-  use_sudo: false
-  eflags: container=docker
-  require_chef_omnibus: 11.12.8
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
 
 platforms:
   - name: debian-stretch
+    driver:
+      image: debian:stretch
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get -y install systemd
 
 suites:
   - name: default
     run_list:
       - recipe[mopidy-jukebox]
-    attributes: {}

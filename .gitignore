@@ -1,7 +1,6 @@
 ENV/
 mopidy.log
 
-nodes/
 berks-cookbooks/
 vendor/
 .bundle/

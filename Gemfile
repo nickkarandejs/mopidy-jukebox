@@ -14,5 +14,5 @@ group :integration do
 end
 
 group :docker do
-  gem 'kitchen-docker', '~> 2.4'
+  gem 'kitchen-dokken'
 end

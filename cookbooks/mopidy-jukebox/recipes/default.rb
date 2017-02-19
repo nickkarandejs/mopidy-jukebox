@@ -61,7 +61,7 @@ cookbook_file "/etc/systemd/system/mopidy.service" do
 	owner "root"
 	group "root"
 	mode "0644"
-	notifies :run, 'execute[reload systemd]', :immediately unless ENV['TEST_KITCHEN']
+	notifies :run, 'execute[reload systemd]', :immediately
 end
 
 directory '/etc/mopidy' do
@@ -103,7 +103,7 @@ end
 
 service 'mopidy' do
 	provider Chef::Provider::Service::Systemd
-	action [:enable, :start] unless ENV['TEST_KITCHEN']
+	action [:enable, :start]
 end
 
 %w{luakit lxde-core lxsession lxlauncher nginx lightdm screen}.each do |pkg|
@@ -114,7 +114,7 @@ end
 
 service 'nginx' do
 	provider Chef::Provider::Service::Systemd
-	action [:enable, :start] unless ENV['TEST_KITCHEN']
+	action [:enable, :start]
 end
 
 cookbook_file "/etc/nginx/sites-available/default" do
@@ -165,13 +165,20 @@ ruby_block 'Edit Lightdm config' do
 	not_if { ::File.readlines('/etc/lightdm/lightdm.conf').grep(/autologin-user=pi/).any? }
 end
 
-service 'lightdm' do
-	provider Chef::Provider::Service::Systemd
-	action [:enable, :start] unless ENV['TEST_KITCHEN']
-	subscribes :restart, 'ruby_block[Edit Lightdm config]', :immediately unless ENV['TEST_KITCHEN']
+directory '/var/lib/lightdm/data' do
+	user 'lightdm'
+	group 'lightdm'
+	mode '750'
+	recursive true
 end
 
-unless ENV['TEST_KITCHEN']
+service 'lightdm' do
+	provider Chef::Provider::Service::Systemd
+	action [:enable, :start]
+	subscribes :restart, 'ruby_block[Edit Lightdm config]', :immediately
+end
+
+unless ENV['CI']
 	execute 'dpms set' do
 		command 'xset -dpms -display :0'
 		user 'pi'
