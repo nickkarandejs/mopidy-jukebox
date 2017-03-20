@@ -186,8 +186,8 @@ unless ENV['TEST_KITCHEN']
 
 	execute 'luakit' do
 		command 'screen -dmS luakit bash -c \'luakit http://jukebox/playlist-only.html\''
-		environment 'DISPLAY' => ':0'
+		environment 'DISPLAY' => ':0', 'HOME' => '/home/pi'
 		user 'pi'
-		not_if 'screen -ls |grep luakit'
+		not_if 'ls /var/run/screen/S-pi |grep luakit'
 	end
 end
