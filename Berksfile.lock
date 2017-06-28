@@ -1,23 +1,29 @@
 DEPENDENCIES
+  apt (< 4.0.0)
   build-essential (< 4.0.0)
   mopidy-jukebox
     path: cookbooks/mopidy-jukebox
   ohai (< 4.0.0)
+  unattended-upgrades (~> 0.1.2)
   yum (< 4.0.0)
   yum-epel (< 1.0.0)
 
 GRAPH
+  apt (3.0.0)
   build-essential (3.2.0)
     seven_zip (>= 0.0.0)
   mopidy-jukebox (0.1.0)
     build-essential (>= 0.0.0)
     python (>= 0.0.0)
+    unattended-upgrades (>= 0.0.0)
   ohai (3.0.1)
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
   seven_zip (2.0.2)
     windows (>= 1.2.2)
+  unattended-upgrades (0.1.2)
+    apt (>= 0.0.0)
   windows (2.0.2)
   yum (3.13.0)
   yum-epel (0.7.1)

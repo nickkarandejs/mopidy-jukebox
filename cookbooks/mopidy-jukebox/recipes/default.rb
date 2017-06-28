@@ -9,6 +9,8 @@ include_recipe 'build-essential::default'
 	end
 end
 
+include_recipe 'unattended-upgrades::default'
+
 cookbook_file '/etc/logrotate.d/rsyslog' do
 	source 'logrotate-rsyslog'
 end
