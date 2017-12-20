@@ -17,4 +17,4 @@ Mopidy-Tachikoma>=0.2.4
 # Also https://github.com/pyca/cryptography/issues/3605
 cryptography>=1.9
 
-youtube-dl>=2017.02.04.1
+youtube-dl>=2017.12.14
