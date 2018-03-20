@@ -10,10 +10,12 @@ The other item we needed was playback over HTTP from everyone’s machines, for 
 ## Installation
 1. On Debian, `sudo apt-get install libsqlite3-dev libffi-dev gstreamer1.0-fluendo-mp3 gstreamer1.0-plugins-bad gstreamer1.0-alsa gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly libssl-dev gir1.2-gstreamer-1.0 gir1.2-gst-plugins-base-1.0 python-dev python-gi`
 2. On OS X, `brew install libffi openssl sqlite pygobject gst-python gst-plugins-good gst-plugins-bad gst-plugins-ugly --with-mad`
-3. `pip install youtube-dl==2016.02.13` (to solve pafy's dependencies)
-4. `pip install -r requirements.txt`
-5. Run `mopidy deps` and see if there's any playback bits you care about and don't have
-6. Run `mopidy`
+3. On OWLinux, `sudo dnf install sqlite-devel openssl-devel python2-gstreamer1 gstreamer-python-devel python-gitapi redhat-rpm-config libffi-devel gstreamer1-plugins-good gstreamer1-plugins-bad-free gstreamer1-plugins-ugly`
+    * You may need to run `sudo pip uninstall pyopenssl` and then `sudo pip install pyopenssl` if you see the error `AttributeError: 'module' object has no attribute 'SSL_ST_INIT'` in the output from step 7
+4. `pip install youtube-dl==2016.02.13` (to solve pafy's dependencies)
+5. `pip install -r requirements.txt`
+6. Run `mopidy deps` and see if there's any playback bits you care about and don't have
+7. Run `mopidy`
 
 ## Cacher
 You should make a Cron job to do the following `mopidy cacher && mopidy local scan` at whatever frequency you want the music files to be updated. Correct values for this depend on your local machines and how often they like getting scraped.
