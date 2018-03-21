@@ -3,6 +3,7 @@ Mopidy-Local-SQLite
 
 # Switch Mopidy-Youtube back to normal once https://github.com/mopidy/mopidy-youtube/pull/46 is merged
 -e git+https://github.com/chatziko/mopidy-youtube@performance-improvements-3#egg=Mopidy-Youtube
+pafy>=0.5.4
 
 pip-tools==1.9.0
 pysqlite
@@ -16,5 +17,7 @@ Mopidy-Tachikoma>=0.2.4
 # Fixes https://github.com/pyca/cryptography/issues/2750 and https://github.com/pyca/cryptography/pull/2826
 # Also https://github.com/pyca/cryptography/issues/3605
 cryptography>=1.9
+pyopenssl>=17.0.0
 
 youtube-dl>=2017.12.14
+Mopidy-SoundCloud>=2.0.2
