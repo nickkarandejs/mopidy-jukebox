@@ -3,6 +3,10 @@ Mopidy-Local-SQLite
 
 # Switch Mopidy-Youtube back to normal once https://github.com/mopidy/mopidy-youtube/pull/46 is merged
 -e git+https://github.com/chatziko/mopidy-youtube@performance-improvements-3#egg=Mopidy-Youtube
+
+# mopidy-youtube repo recommends upgrading pafy if youtube URI resolution starts to fail. Prior to figuring out that the
+# problem was actually the API key, upgrading to the latest version was attempted. This can be potentially be removed
+# in favour of letting the plugin manage it's own dependencies.
 pafy>=0.5.4
 
 pip-tools==1.9.0
@@ -17,6 +21,10 @@ Mopidy-Tachikoma>=0.2.4
 # Fixes https://github.com/pyca/cryptography/issues/2750 and https://github.com/pyca/cryptography/pull/2826
 # Also https://github.com/pyca/cryptography/issues/3605
 cryptography>=1.9
+
+# pyOpenSSL v16.0.0 was causing the python error AttributeError: 'module' object has no attribute 'SSL_ST_INIT' on
+# running mopidy. This version does not cause that, and prevents the user from having to manually pip
+# un-/re-install the pyOpenSSL module to get the jukebox to work.
 pyOpenSSL>=17.5.0
 
 youtube-dl>=2017.12.14
