@@ -4,8 +4,8 @@
 #
 #    pip-compile --output-file cookbooks/mopidy-jukebox/files/default/requirements.txt requirements.in
 #
--e file:///home/theo.lawson/Documents/Repos/mopidly/mopidy-cacher
--e file:///home/theo.lawson/Documents/Repos/mopidly/mopidy-musicbox-webclient
+-e mopidy-cacher
+-e mopidy-musicbox-webclient
 -e git+https://github.com/mopidy/mopidy-soundcloud.git@faeb6710980f12b50b03bf78c1878be751b8e21a#egg=Mopidy-SoundCloud
 -e git+https://github.com/chatziko/mopidy-youtube@performance-improvements-3#egg=Mopidy-Youtube
 asn1crypto==0.22.0        # via cryptography
