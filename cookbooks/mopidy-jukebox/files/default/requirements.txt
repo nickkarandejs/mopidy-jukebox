@@ -6,6 +6,7 @@
 #
 -e mopidy-cacher
 -e mopidy-musicbox-webclient
+-e git+https://github.com/mopidy/mopidy-soundcloud.git@faeb6710980f12b50b03bf78c1878be751b8e21a#egg=Mopidy-SoundCloud
 -e git+https://github.com/chatziko/mopidy-youtube@performance-improvements-3#egg=Mopidy-Youtube
 asn1crypto==0.22.0        # via cryptography
 backports-abc==0.4        # via tornado
@@ -13,7 +14,7 @@ cachetools==1.1.6
 certifi==2015.4.28
 cffi==1.7.0               # via cryptography
 click==6.6                # via pip-tools
-cryptography==1.9
+cryptography==2.2.1
 decorator==4.0.10         # via validators
 enum34==1.1.6             # via cryptography
 first==2.0.1              # via pip-tools
@@ -23,12 +24,12 @@ mopidy-local-sqlite==1.0.0
 mopidy-tachikoma==0.2.4
 mopidy==2.0.1
 ndg-httpsclient==0.4.2    # via requests
-pafy==0.5.1
+pafy==0.5.4
 pip-tools==1.9.0
 pyasn1==0.1.9             # via requests
 pycparser==2.14           # via cffi
 pykka==1.2.1              # via mopidy, mopidy-local-sqlite, mopidy-tachikoma
-pyopenssl==16.0.0         # via ndg-httpsclient, requests
+pyopenssl==17.5.0
 pysqlite==2.8.2
 requests[security]==2.10.0
 singledispatch==3.4.0.3   # via tornado
