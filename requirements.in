@@ -3,6 +3,7 @@ Mopidy-Local-SQLite
 
 # Switch Mopidy-Youtube back to normal once https://github.com/mopidy/mopidy-youtube/pull/46 is merged
 -e git+https://github.com/chatziko/mopidy-youtube@performance-improvements-3#egg=Mopidy-Youtube
+-e git+https://github.com/nickkarandejs/mopidy@release-2.2#egg=Mopidy
 
 # mopidy-youtube repo recommends upgrading pafy if youtube URI resolution starts to fail. Prior to figuring out that the
 # problem was actually the API key, upgrading to the latest version was attempted. This can be potentially be removed
